@@ -58,16 +58,34 @@ function Login() {
 }
 
 function Chat() {
+  const scroll = useRef();
   const messagesRef = firestore.collection('messages');
   const query = messagesRef.orderBy('createdAt').limit(20);
   const [messages] = useCollectionData(query, { idField: 'id' });
+  const [fValue, setFValue] = useState('');
+
+  const sendSms = async (e) => {
+    e.preventDefault();
+    const { uid, photoURL } = auth.currentUser;
+    await messagesRef.add({
+      text: fValue,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      uid,
+      photoURL
+    })
+    setFValue('');
+    scroll.current.scrollIntoView({ behavior: 'smooth' });
+  }
 
   return (<>
     <main>
-
       {messages && messages.map(sms => <Message key={sms.id} msg={sms} />)}
-
+      <span ref={scroll}></span>
     </main>
+    <form onSubmit={sendSms}>
+      <input value={fValue} onChange={(e) => setFValue(e.target.value)} placeholder="say something nice" />
+      <button type="submit" disabled={!fValue}></button>
+    </form>
   </>)
 }
 
