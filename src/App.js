@@ -44,7 +44,17 @@ function App() {
 }
 
 function Login() {
+  const signInWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider);
+  }
 
+  return (
+    <>
+      <button className="login-btn" onClick={signInWithGoogle}>Google Sing In</button>
+      <p>Do not violate the community guidelines or you will be banned for life!</p>
+    </>
+  )
 }
 
 function Chat() {
@@ -52,6 +62,8 @@ function Chat() {
 }
 
 function SignOut() {
-
+  return auth.currentUser && (
+    <button className="so-btn" onClick={() => auth.signOut()}>Sign Out</button>
+  )
 }
 export default App;
