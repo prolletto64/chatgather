@@ -25,8 +25,20 @@ const firestore = firebase.firestore();
 const analytics = firebase.analytics();
 
 function App() {
+
+  const [user] = useAuthState(auth);
+
   return (
     <div className="App">
+      <header>
+        <h1>chatgather</h1>
+        <SignOut />
+      </header>
+
+      <section>
+        {user ? <Chat /> : <Login />}
+      </section>
+
     </div>
   );
 }
