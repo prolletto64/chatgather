@@ -58,7 +58,17 @@ function Login() {
 }
 
 function Chat() {
+  const messagesRef = firestore.collection('messages');
+  const query = messagesRef.orderBy('createdAt').limit(20);
+  const [messages] = useCollectionData(query, { idField: 'id' });
 
+  return (<>
+    <main>
+
+      {messages && messages.map(sms => <Message key={sms.id} msg={sms} />)}
+
+    </main>
+  </>)
 }
 
 function SignOut() {
@@ -67,4 +77,16 @@ function SignOut() {
   )
 }
 
+function Message(props) {
+  const { text, uid, photoURL } = props.msg;
+
+  const messageClass = uid === auth.currentUser.uid ? 'me' : 'others';
+
+  return (<>
+    <div className={`msg ${messageClass}`}>
+      <img src={photoURL} alt='profile' />
+      <p>{text}</p>
+    </div>
+  </>)
+}
 export default App;
