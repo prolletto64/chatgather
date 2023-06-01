@@ -9,6 +9,9 @@ import 'firebase/compat/analytics';
 //firebase hooks stuff
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+//icons
+import SendIcon from '@mui/icons-material/Send';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -84,14 +87,14 @@ function Chat() {
     </main>
     <form onSubmit={sendSms}>
       <input value={fValue} onChange={(e) => setFValue(e.target.value)} placeholder="say something nice" />
-      <button type="submit" disabled={!fValue}></button>
+      <button type="submit" disabled={!fValue}><SendIcon /></button>
     </form>
   </>)
 }
 
 function SignOut() {
   return auth.currentUser && (
-    <button className="so-btn" onClick={() => auth.signOut()}>Sign Out</button>
+    <button className="so-btn" onClick={() => auth.signOut()}><LogoutIcon /></button>
   )
 }
 
