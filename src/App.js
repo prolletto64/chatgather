@@ -55,7 +55,6 @@ function Login() {
   return (
     <>
       <button className="login-btn" onClick={signInWithGoogle}>Google Sing In</button>
-      <p>Do not violate the community guidelines or you will be banned for life!</p>
     </>
   )
 }
