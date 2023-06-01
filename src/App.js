@@ -43,4 +43,15 @@ function App() {
   );
 }
 
+function Login() {
+
+}
+
+function Chat() {
+
+}
+
+function SignOut() {
+
+}
 export default App;
